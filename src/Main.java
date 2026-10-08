@@ -5,5 +5,7 @@ public class Main {
 
         CajaFuerte caja = new CajaFuerte( 20260001L, "SegcureBox A1", 1234, 50000.0);
         System.out.println("Caja fuerte creada correctamente");
+
+
     }
 }
