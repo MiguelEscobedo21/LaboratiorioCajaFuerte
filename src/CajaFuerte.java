@@ -8,6 +8,7 @@ public class CajaFuerte {
     private double capacidadMaxima;
     private double saldoActual;
 
+    //Constructor
     public CajaFuerte(Long numeroSerie, String modelo,
                       int claveAcceso, double capacidadMaxima) {
         this.numeroSerie = numeroSerie;
@@ -19,7 +20,7 @@ public class CajaFuerte {
         saldoActual = 0.0;
     }
 
-
+    //Metodo para abrir la caja
     public void abrir(int claveIngresada){
         if (intentosFallidos >= 3){
             System.out.println("Caja fuerte bloqueada");
@@ -48,12 +49,66 @@ public class CajaFuerte {
         }
     }
 
+    //metodo para cerrar la caja
     public void cerrar(){
         if (estado){
             estado = false;
             System.out.println("Se ha cerrado la caja");
         }else{
             System.out.println("La caja ya esta cerrada");
+        }
+    }
+
+    //metodo para depositar y verificar si es posible
+    public void depositar(double cantidad){
+        if (!estado){
+            System.out.println("Primero abre la caja");
+            return;
+        }
+
+        if (cantidad <= 0 || saldoActual + cantidad > capacidadMaxima){
+            System.out.println("Depósito no permitido");
+            return;
+        }
+
+        saldoActual += cantidad;
+        System.out.println("Depósito realizado");
+    }
+
+    //metodo para retirar y saber si es posible realizarlo
+    public void retirar(double cantidad){
+        if (!estado){
+            System.out.println("Primero abre la caja");
+            return;
+        }
+
+        if (cantidad <=0 || cantidad > saldoActual){
+            System.out.println("Retiro no permitido");
+            return;
+        }
+
+        saldoActual -= cantidad;
+        System.out.println("Retiro realizado");
+    }
+
+    //metodo para mostrar en que estado se encuentra la caja
+    public void mostrarEstado(){
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Numero Serie: " + numeroSerie);
+        System.out.print("La caja esta: " );
+
+        if (estado){
+            System.out.println("abierta");
+        }else{
+            System.out.println("cerrada");
+        }
+
+        System.out.println("Intentos fallidos: " + intentosFallidos);
+
+        if (estado){
+            System.out.println("Saldo: " + saldoActual);
+        }else{
+            System.out.println("Saldo: información protegida");
         }
     }
 
